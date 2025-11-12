@@ -1,6 +1,18 @@
 import React from "react";
 
-function ToyCard({ name, image, likes }) {
+function ToyCard({ id, name, image, likes, donateToy }) {
+
+  const handleDelete = () => {
+    fetch(`http://localhost:3001/toys/${id}`, {
+      method: "DELETE"
+    })
+      .then(r => {
+        if(!r.ok){throw new Error("failed to donate toy")}
+        donateToy(id)
+      })
+      .catch(error => console.log(error.message))
+  }
+
   return (
     <div className="card" data-testid="toy-card">
       <h2>{name}</h2>
@@ -11,7 +23,7 @@ function ToyCard({ name, image, likes }) {
       />
       <p>{likes} Likes </p>
       <button className="like-btn">Like {"<3"}</button>
-      <button className="del-btn">Donate to GoodWill</button>
+      <button className="del-btn" onClick={handleDelete}>Donate to GoodWill</button>
     </div>
   );
 }
