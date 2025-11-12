@@ -24,8 +24,10 @@ function App() {
     setToys(previousToys => [...previousToys, newToy])
   }
 
-  const donateToy = donateToyId => setToys(previousToys => previousToys.filter(toy => toy.id !== donateToyId))
-  
+  const donateToy = donateToyId => setToys(previousToys => previousToys.filter(toy => toy.id !== donateToyId));
+
+  const updateToy = updatedToys => setToys(previousToys => previousToys.map(toy => toy.id === updatedToys.id ? updatedToys : toy))
+
   function handleClick() {
     setShowForm((showForm) => !showForm);
   }
@@ -37,7 +39,7 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} donateToy={donateToy}/>
+      <ToyContainer toys={toys} donateToy={donateToy} updateToy={updateToy}/>
     </>
   );
 }
