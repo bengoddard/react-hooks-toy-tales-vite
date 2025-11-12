@@ -19,6 +19,10 @@ function App() {
   }
 
   useEffect(fetchToys, []);
+
+  function addToy(newToy){
+    setToys(previousToys => [...previousToys, newToy])
+  }
   
   function handleClick() {
     setShowForm((showForm) => !showForm);
@@ -27,7 +31,7 @@ function App() {
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+      {showForm ? <ToyForm  addToy={addToy}/> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
